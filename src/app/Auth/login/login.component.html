@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form #loginForm="ngForm" class="form-group" novalidate>
+
+        <label>username</label>
+        <input type="text" class="form-control" name="username" 
+       [(ngModel)]="user.username" required #uname="ngModel">
+
+        <div class="danger" *ngIf="uname.invalid && uname.dirty">
+          required field
+        </div>  
+        <label>password</label>
+        <input type="password" class="form-control" required
+         name="password"[(ngModel)]="user.password" #pass="ngModel">
+         <div class="danger" [hidden]="pass.valid || pass.pristine">
+          required
+         </div>
+
+        <button class="btn btn-primary" [disabled]="loginForm.invalid"
+        [hidden]="submitting" (click)="login()">Login</button>
+
+        <button class="btn btn-info" [hidden]="!submitting">Logging in...</button>
+      </form>
+      <a routerLink='/auth/register'>Signup</a>
+    </div>
+  </div>
+</div>
+  

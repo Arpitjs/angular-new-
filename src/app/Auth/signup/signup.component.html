@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form class="form-group" #signUpForm="ngForm" novalidate>
+
+        <label>name</label>
+        <input type="text" class="form-control" name="username" required
+        [(ngModel)]="user.username" #uname="ngModel">
+
+        <div class="danger" *ngIf="uname.dirty && uname.invalid">
+          required field
+        </div>
+
+        <label>password</label>
+        <input type="text" class="form-control" name="password" 
+        [(ngModel)]="user.password" minlength="6" #pass="ngModel" required>
+        <div class="danger" *ngIf="pass.dirty && pass.invalid">
+          <div *ngIf="pass.errors.required">
+            required field
+          </div>
+          <div *ngIf="pass.errors.minlength">password too short</div>
+           </div>
+
+        <label>email</label>
+        <input type="text" class="form-control" name="email"
+         [(ngModel)]="user.email" required email #email="ngModel">
+
+        <div class="danger" *ngIf="email.errors && email.dirty">
+          <div *ngIf="email.errors.required">
+            required field
+          </div>
+          <div *ngIf="email.errors.email">
+            invalid email
+          </div>
+        </div>
+
+        <label>phone</label>
+        <input type="number" class="form-control" name="phone" [(ngModel)]="user.phone">
+
+        <button class="btn btn-primary" [disabled]="signUpForm.invalid"
+        [hidden]="submitting" (click)="register()">Register</button>
+
+        <button class="btn btn-info" [hidden]="!submitting">signing in...</button>
+      </form>
+      <a routerLink=''>Back to login</a>
+    </div>
+  </div>
+</div>
