@@ -7,6 +7,7 @@ import { AuthRoutingModule } from './auth.routing';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -17,9 +18,11 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     AuthRoutingModule,
     FormsModule,
     SharedModule
-  ]
+  ],
+  providers: []
 })
 export class AuthModule { }

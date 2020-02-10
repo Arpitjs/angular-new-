@@ -18,5 +18,6 @@ export class NotifyService {
         this.toastr.warning(str)
     }
     showError(error) {
+        this.toastr.error(error)
     }
 }

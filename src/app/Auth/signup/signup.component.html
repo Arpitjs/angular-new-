@@ -3,7 +3,7 @@
     <div class="col">
       <form class="form-group" #signUpForm="ngForm" novalidate>
 
-        <label>name</label>
+        <label>username</label>
         <input type="text" class="form-control" name="username" required
         [(ngModel)]="user.username" #uname="ngModel">
 
@@ -12,7 +12,7 @@
         </div>
 
         <label>password</label>
-        <input type="text" class="form-control" name="password" 
+        <input type="password" class="form-control" name="password"  
         [(ngModel)]="user.password" minlength="6" #pass="ngModel" required>
         <div class="danger" *ngIf="pass.dirty && pass.invalid">
           <div *ngIf="pass.errors.required">

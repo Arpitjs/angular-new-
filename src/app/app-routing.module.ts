@@ -5,7 +5,7 @@ import { PagenotfoundComponent } from './shared/pagenotfound/pagenotfound.compon
 
 const routes: Routes = [
   {path: '', redirectTo: '/auth/login', pathMatch: 'full'},
-  {path: 'auth', loadChildren: './Auth/auth.module#AuthModule'},
+  {path: 'auth', loadChildren: () => import('./Auth/auth.module').then(m => m.AuthModule)},
   {path: '**', component: PagenotfoundComponent }
 ];
 
