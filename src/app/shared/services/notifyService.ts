@@ -17,7 +17,18 @@ export class NotifyService {
     showWarning(str: string) {
         this.toastr.warning(str)
     }
-    showError(error) {
-        this.toastr.error(error)
+    showError(e) {
+        debugger
+        if (typeof (e.error.message) === 'string') {
+            this.toastr.error(e.error.message)
+        }
+        else if (parseInt(e.error.message.code) === 11000) {
+            this.toastr.error('that name already exists.')
+        }
+        else if (typeof (e.error.message) === 'object') {
+            this.toastr.error(e.error.message.message)
+        } else {
+            this.toastr.error('something went wrong')
+        }
     }
 }

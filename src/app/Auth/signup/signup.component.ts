@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user_Model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
+import { NotifyService } from 'src/app/shared/services/notifyService';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +12,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class SignupComponent implements OnInit {
   public submitting = false
   user
-  constructor(public authService: AuthService
+  constructor(public authService: AuthService,
+    public notifyService: NotifyService,
+  public router: Router
 
   ) {
     this.user = new User({})
@@ -21,9 +25,18 @@ export class SignupComponent implements OnInit {
 
   register() {
     this.authService.register(this.user)
-    .subscribe(data => console.log(data),
-    err => console.log(err))
-    this.submitting = true
-      setTimeout(() => this.submitting = false, 2000)
+    .subscribe(data => {
+      this.submitting = true
+      setTimeout(() =>  {
+        this.submitting = false
+        this.notifyService.showSuccess('registration successful! plz login')
+      this.router.navigate(['/auth/login'])
+      },2000)
+    },
+    err => {
+      this.submitting = false
+      this.notifyService.showError(err)
+    })
   }
 }
+

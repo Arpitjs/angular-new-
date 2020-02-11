@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router,
     public notifyService: NotifyService,
     public authService: AuthService
-    ) {
+  ) {
     this.user = new User({})
     this.notifyService.showInfo('hello')
   }
@@ -26,16 +26,20 @@ export class LoginComponent implements OnInit {
   login() {
 
     this.authService.login(this.user)
-    .subscribe(data => {
-      this.notifyService.showSuccess('welcome to memeclub')
-      this.submitting = true
-  
-      setTimeout(() => {
-        this.submitting = false
-        this.router.navigate(['/auth/dashboard'])
+      .subscribe((data: any) => {
+        console.log(data)
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
         this.notifyService.showWarning('hosiyar')
-      },2000)
-    },
-    err => this.notifyService.showError('invalid login credentials'))
+        this.submitting = true
+
+        setTimeout(() => {
+          this.submitting = false
+          this.router.navigate(['/auth/dashboard'])
+        this.notifyService.showSuccess(`welcome to memeclub, ${data.user.username}`)
+        }, 2000)
+
+      },
+        err => this.notifyService.showError(err))
   }
 }
